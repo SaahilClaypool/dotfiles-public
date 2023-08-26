@@ -1,0 +1,15 @@
+*.log
+compile_commands.json
+.vimrc
+tags
+.vscode
+_smc*
+TAGS
+.yardoc
+doc
+.solargraph.yml
+.vim
+.nvimrc
+.root
+tags*
+.tags*

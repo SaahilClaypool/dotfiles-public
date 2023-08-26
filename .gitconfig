@@ -1,0 +1,62 @@
+[user]
+	name = Saahil Claypool
+	email = saahil@claypools.org
+[core]
+	excludesfile = ~/.gitignore
+	editor = nvim
+[diff]
+  prompt = true
+  tool = vscode
+	algorithm = histogram
+[difftool "vscode"]
+  cmd = echo "code --diff $LOCAL $REMOTE $LOCAL $REMOTE" && code --wait --diff $LOCAL $REMOTE
+[mergetool]
+  prompt = false
+[mergetool "vimdiff"]
+  cmd = code --wait $MERGED
+[difftool "vimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[alias] 
+  # list files which have changed since REVIEW_BASE
+  # (REVIEW_BASE defaults to 'master' in my zshrc)
+    b = branch --sort=-committerdate -v # DESC
+    root = rev-parse --show-toplevel
+    files = diff --name-only
+    recent = branch -a --sort=-committerdate
+    recentfiles = !git diff-index --name-only --diff-filter=A | git log --color=never --pretty --name-only | awk '!seen[$0]++'
+    brt = "!git for-each-ref refs/heads --color=always --sort -committerdate --format='%(HEAD)%(color:reset);%(color:yellow)%(refname:short)%(color:reset);%(contents:subject);%(color:green)(%(committerdate:relative))%(color:blue);<%(authorname)>' | column -t -s ';'"
+
+
+  # Same as above, but with a diff stat instead of just names
+  # (better for interactive use)
+    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+
+    review = !nvim -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+    reviewone = !nvim -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+
+  # Push to origin with same name
+    ppush = push -u origin HEAD
+
+    base = merge-base --fork-point
+    dt = difftool
+    preview = clone --depth 1 --single-branch
+    s = status
+    d = diff
+[rerere]
+	enabled = true
+[pull]
+	rebase = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[http]
+	postBuffer = 157286400
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[rebase]
+	autoStash = true

@@ -16,6 +16,7 @@ echo "============ INSTALLING BREW ============================="
 brew install fzf
 brew install zoxide
 brew install rg
+brew install jq
 
 python3 -m pip install pgcli
 

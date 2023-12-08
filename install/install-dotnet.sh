@@ -1,16 +1,9 @@
-# Get Ubuntu version
-declare repo_version=$(if command -v lsb_release &> /dev/null; then lsb_release -r -s; else grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"'; fi)
+ sudo apt install libc6 libgcc1 libgcc-s1 libgssapi-krb5-2 liblttng-ust1 libssl3 libstdc++6 libunwind8 zlib1g wget curl
 
-# Download Microsoft signing key and repository
-wget https://packages.microsoft.com/config/ubuntu/$repo_version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+cd
 
-# Install Microsoft signing key and repository
-sudo dpkg -i packages-microsoft-prod.deb
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x ./dotnet-install.sh
 
-# Clean up
-rm packages-microsoft-prod.deb
-
-# Update packages
-sudo apt update
-
-sudo apt install dotnet-sdk-7.0
+./dotnet-install.sh
+./dotnet-install.sh --version latest

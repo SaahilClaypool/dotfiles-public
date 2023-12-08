@@ -12,8 +12,8 @@ function install {
     eval $3
 }
 
-DOCKER_SOCK="/mnt/wsl/shared-docker/docker.sock"
-test -S "$DOCKER_SOCK" && export DOCKER_HOST="unix://$DOCKER_SOCK"
+# DOCKER_SOCK="/mnt/wsl/shared-docker/docker.sock"
+# test -S "$DOCKER_SOCK" && export DOCKER_HOST="unix://$DOCKER_SOCK"
 
 export PATH="$HOME/.local/bin:$PATH"
 export DOTNET_ROOT=$HOME/.dotnet
